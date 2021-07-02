@@ -27,3 +27,8 @@ const GAME_BASE_URL = 'https://api.rawg.io/api/';
 */
 
 // IGDB API (has videos)
+
+// Client ID   n6052rxigh8phfv00dnjubjsluzzz7
+
+
+// Client Secret 6o0k2a6hwe5a3o7020e3tjygo28d52
