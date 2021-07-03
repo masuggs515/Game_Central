@@ -26,8 +26,6 @@ const Profile = () => {
 
     const handleSubmit = async e => {
         e.preventDefault();
-        console.log(formData)
-        console.log(currUser)
         let savedUser;
         try {
             savedUser = await GameAPI.editProfile(currUser.username, formData)
@@ -35,10 +33,9 @@ const Profile = () => {
         } catch (error) {
             console.log(error)
         }
-        alert("Saved edits");
-        console.log(savedUser)
+        setCurrUser(savedUser);
         history.push('/');
-        setFormData({ ...formData, password: '' })
+        alert("Saved edits");
     };
 
     if (!currUser) return <h1>Loading...</h1>

@@ -36,6 +36,17 @@ router.get('/random', async (req, res) => {
     };   
 });
 
+router.get('/explore', async (req, res, next) => {
+
+    try {
+        const results = await Game.exploreGames();
+
+        return res.json(results);
+    } catch (e) {
+        return next(e);
+    }
+});
+
 // Individual game
 
 router.get('/:game', async (req, res, next) => {
@@ -49,6 +60,8 @@ router.get('/:game', async (req, res, next) => {
         return next(e);
     }
 });
+
+
 
 
 module.exports = router;

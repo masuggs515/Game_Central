@@ -6,25 +6,21 @@ import Genre from "./Genres";
 
 const Genres = () => {
 
-    const [genres, setGenres] = useState([]);
+    const [genres, setGenres] = useState(null);
     
-
     useEffect(()=>{
+        if(!genres){
         getAllGenres();
-        // if(genres.length>0){
-        //     getAllGenres();
-        // }
+    }
     }, [])
 
     async function getAllGenres() {
         const results = await GameAPI.getGenres();
-        console.log(results);
-        setGenres(results);
+        return results;
     };
 
 
-    // if (!genres) return <h1>Loading...</h1>
-    // console.log(genres)
+    if (!genres) return <h1>Loading...</h1>
 
     return (
         <div className='genres'>

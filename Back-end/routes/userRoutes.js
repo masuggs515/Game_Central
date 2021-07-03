@@ -97,24 +97,16 @@ router.get("/:username", ensureLoggedIn, async function (req, res, next) {
  * Authorization required: admin or logged in same user
  **/
 
-router.post("/:username", async function (req, res, next) {
+router.post("/:username", ensureLoggedIn, async function (req, res, next) {
   try {
-    console.log("REQUEST BODY ---> ", req.body)
-    // const validator = jsonschema.validate(req.body, userUpdateSchema);
-    // console.log("VALIDATOR ---->", validator)
-    // if (!validator.valid) {
-    //   const errs = validator.errors.map(e => e.stack);
-    //   throw new BadRequestError(errs);
-    // }
-
-    console.log(req.params)
-    
+    const validator = jsonschema.validate(req.body, userUpdateSchema);
+    if (!validator.valid) {
+      const errs = validator.errors.map(e => e.stack);
+      throw new BadRequestError(errs);
+    }
 
     const user = await User.update(req.params.username, req.body);
     console.log(user);
-    // if (res.locals.user.isAdmin === false && res.locals.user.username !== req.params.username) {
-    //   throw new UnauthorizedError("Only admin or this user can reach this route");
-    // }
     
     return res.json({ user });
   } catch (err) {

@@ -80,9 +80,13 @@ class GameAPI {
   // Edit user page
 
   static async editProfile(username, data) {
-    let res = await this.request(`users/${username}`, data, "post");
-    console.log("RES --->",res)
+    let res = await this.request(`/users/${username}`, data, "post");
     return res.user;
+  }
+
+  static async explorePage(){
+    let res = await this.request('/games/explore');
+    return res
   }
 
 }

@@ -8,6 +8,7 @@ const Navbar = ({ logout }) => {
     return (
         <div className='Navbar'>
             <NavLink to='/'>Home</NavLink>
+            <NavLink to='/explore'>Explore</NavLink>
             <NavLink to='/games'>Top Games</NavLink>
             <NavLink to='/platforms'>Platforms</NavLink>
             <NavLink to='/genres'>Genres</NavLink>

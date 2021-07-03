@@ -9,12 +9,16 @@ import Home from './Home'
 import LoginRoute from "./User/LoginRoute";
 import Signup from "./User/RegisterRoute";
 import Profile from "./User/Profile";
+import Explore from "./Explore/Explore";
 
 
 const Routes = ({login, signup}) =>{
     
     return (
         <Switch>
+            <Route exact path='/explore'>
+                <Explore />
+            </Route>
             <Route exact path='/user/:username'>
                 <Profile />
             </Route>
