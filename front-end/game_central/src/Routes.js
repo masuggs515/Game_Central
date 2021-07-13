@@ -8,8 +8,10 @@ import GameDetails from './Games/GameDetails';
 import Home from './Home'
 import LoginRoute from "./User/LoginRoute";
 import Signup from "./User/RegisterRoute";
-import Profile from "./User/Profile";
+import Profile from "./User/Profile"
+import ProfileEdit from "./User/ProfileEdit";
 import Explore from "./Explore/Explore";
+import Genre2 from "./Genres/Genre2";
 
 
 const Routes = ({login, signup}) =>{
@@ -22,6 +24,9 @@ const Routes = ({login, signup}) =>{
             <Route exact path='/user/:username'>
                 <Profile />
             </Route>
+            <Route exact path='/user/:username/edit'>
+                <ProfileEdit/>
+            </Route>
             <Route exact path='/register'>
                 <Signup signup={signup} />
             </Route>
@@ -29,7 +34,8 @@ const Routes = ({login, signup}) =>{
                 <LoginRoute login={login}/>
             </Route>
             <Route exact path='/genres'>
-                <Genres />
+                {/* <Genres /> */}
+                <Genre2 />
             </Route>
             <Route exact path='/games'>
                 <Games />

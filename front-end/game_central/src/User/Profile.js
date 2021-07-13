@@ -1,90 +1,35 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react"
+import TokenContext from "../context/tokenContext"
+import { Link } from "react-router-dom";
 import GameAPI from "../GameAPI";
-import TokenContext from "../context/tokenContext";
-import { useHistory } from "react-router-dom";
+import Game from "../Games/Game";
 
 const Profile = () => {
-    const { currUser, setCurrUser } = useContext(TokenContext);
-    const history = useHistory();
-
-    const INITIAL_FORM_DATA = {
-        firstName: currUser.firstName,
-        lastName: currUser.lastName,
-        email: currUser.email,
-        password: ''
-    };
-
-    const [formData, setFormData] = useState(INITIAL_FORM_DATA);
-
-    const handleChange = e => {
-        const { name, value } = e.target;
-        setFormData(formData => ({
-            ...formData,
-            [name]: value
-        }));
-    };
-
-    const handleSubmit = async e => {
-        e.preventDefault();
-        let savedUser;
-        try {
-            savedUser = await GameAPI.editProfile(currUser.username, formData)
-
-        } catch (error) {
-            console.log(error)
+    const [faveGames, setFaveGames] = useState(null)
+    const { currUser, userFavorites } = useContext(TokenContext);
+    useEffect(() => {
+        async function getFaveGames() {
+            let res = await GameAPI.getMultipleGames(userFavorites);
+            setFaveGames(res);
         }
-        setCurrUser(savedUser);
-        history.push('/');
-        alert("Saved edits");
-    };
+        getFaveGames();
+    }, [userFavorites])
 
-    if (!currUser) return <h1>Loading...</h1>
     return (
-        <div className='Profile' style={{height: '89.75vh'}}>
+        <div>
             <h1>{currUser.username}'s Profile</h1>
-            <div className='d-flex justify-content-center'>
-                <form onSubmit={handleSubmit} style={{ width: "40vw" }} className='text-start'>
-
-                    <label className='form-label m-0 mt-4' htmlFor='username'>Username: </label>
-                    <p className='ms-3'>{currUser.username}</p>
-                    <label className='form-label' htmlFor='firstName'>First Name: </label>
-                    <input name='firstName'
-                        className='form-control mb-2 ms-1'
-                        id='firstName'
-                        type='text'
-                        value={formData.firstName}
-                        onChange={handleChange}
-                    />
-                    <label htmlFor='lastName' className='form-label'>Last Name:</label>
-                    <input name='lastName'
-                        className='form-control mb-2 ms-1'
-                        id='lastName'
-                        type='text'
-                        value={formData.lastName}
-                        onChange={handleChange}
-                    />
-                    <label htmlFor='email' className='form-label'>Email:</label>
-                    <input name='email'
-                        className='form-control mb-2 ms-1 '
-                        id='email'
-                        type='email'
-                        value={formData.email}
-                        onChange={handleChange}
-                    />
-                    <label htmlFor='password' className='form-label'>Password:</label>
-                    <input name='password'
-                        className='form-control mb-2 ms-1'
-                        id='password'
-                        type='password'
-                        onChange={handleChange}
-                    />
-                    <div className='d-grid'>
-                        <button className='btn btn-primary m-2'>Submit</button>
-                    </div>
-                </form>
-            </div>
+            <p>Name: {currUser.firstName} {currUser.lastName}</p>
+            <Link to={`/user/${currUser.username}/edit`}>Edit Profile</Link>
+            <h3>Favorite Games</h3>
+            {!faveGames ? "Loading favorites" : faveGames.map(game => {
+                return (
+                    <Game key={game.id} game={game} />
+                )
+            })}
+            {faveGames && faveGames.length ===0 ? "No favorited games" : ""}
         </div>
-    );
-};
+    )
 
-export default Profile;
+}
+
+export default Profile

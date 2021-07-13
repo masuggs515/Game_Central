@@ -13,8 +13,11 @@ const router = new express.Router()
 // USe game ID here to create link for indiviual games
 
 router.get('/', async (req, res, next) => {
+    const {search} = req.query;
+    
+    let allGames;
     try {
-        const allGames = await Game.findTopGames()
+        allGames = await Game.findTopGames(search)
 
         return res.json(allGames);
     } catch (e) {
@@ -61,7 +64,14 @@ router.get('/:game', async (req, res, next) => {
     }
 });
 
-
+router.get('/', async (req, res, next)=>{
+    try {
+        const games = await Game.searchGames(search);
+        return res.json(games);
+    } catch (e) {
+        return next(e)
+    }
+})
 
 
 module.exports = router;

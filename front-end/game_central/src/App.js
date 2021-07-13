@@ -1,7 +1,7 @@
 import './App.css';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from "./Routes";
-import Navbar from './Navbar';
+import Navbar from './Navigation/Navbar';
 import GameAPI from './GameAPI';
 import { useEffect, useState } from 'react';
 import TokenContext from './context/tokenContext';
@@ -11,6 +11,7 @@ function App() {
 
   const [token, setToken] = useState(null);
   const [currUser, setCurrUser] = useState(null);
+  const [userFavorites, setUserFavorites] = useState([])
   const [infoLoaded, setInfoLoaded] = useState(false);
 
   useEffect(function getUserInfo() {
@@ -20,7 +21,8 @@ function App() {
           GameAPI.token = token;
           let { username } = jwt.decode(token);
           let user = await GameAPI.getUser(username);
-          setCurrUser(user);
+          setCurrUser(await user);
+          setUserFavorites(await user.favorites.map(game=> game.gameId))
           setInfoLoaded(true);
         } catch (e) {
           console.log(e)
@@ -31,8 +33,9 @@ function App() {
     }
     setInfoLoaded(false)
     getCurrentUser();
-  }, [token])
+  }, [token]);
 
+  
 
 
   const login = async (loginData) => {
@@ -63,17 +66,13 @@ function App() {
     setToken(null);
   }
 
-if(!token) {
-  console.log("NO TOKEN")
-}
-
 if(!infoLoaded) return <h1>Loading....</h1>
 
 
   return (
     <div className="App">
       <header className="App-header">
-        <TokenContext.Provider value={{ token, currUser, setCurrUser }}>
+        <TokenContext.Provider value={{ token, currUser, setCurrUser, userFavorites, setUserFavorites }}>
           <BrowserRouter>
             <Navbar logout={logout} />
             <Routes login={login} signup={signup}/>

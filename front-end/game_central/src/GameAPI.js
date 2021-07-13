@@ -22,72 +22,102 @@ class GameAPI {
       return (await axios({ url, method, data, params, headers })).data;
     } catch (err) {
       console.error("API Error:", err.response);
-      let message = err.response.data.error.message;
+      const message = err.response.data.error.message;
       throw Array.isArray(message) ? message : [message];
     }
   };
 
   // GAME API ROUTES
 
-  static async getGames() {
-    let res = await this.request('/games');
+  static async getGames(search = '') {
+    const res = await this.request(`/games${search}`);
+    return res;
+  };
+
+  static async getGame(gameId) {
+    const res = await this.request(`/games/${gameId}`);
+    return res;
+  };
+
+  static async getMultipleGames(arr){
+    const res = await axios.all(arr.map(game=> this.request(`/games/${game}`)))
+    return res;
+  };
+
+  static async explorePage(){
+    const res = await this.request('/games/explore');
+    return res
+  };
+
+  static async addFavorite(data, gameId){
+    const res = await this.request(`/favorites/${gameId}/add`, data, "post");
+    return res;
+  };
+
+  static async removeFavorite(data, gameId){
+    const res = await this.request(`/favorites/${gameId}/delete`, data, "post");
+    return res;
+  };
+
+  static async getRandomGames(){
+    const res = await this.request('/games/random');
     return res;
   }
 
-  static async getGame(gameId) {
-    let res = await this.request(`/games/${gameId}`);
-    return res;
-  }
+
 
   // PLATFORM API ROUTES
 
   static async getPlatforms() {
-    let res = await this.request('/platforms')
+    const res = await this.request('/platforms')
     return res;
   };
 
   static async getPlatform(platformId) {
-    let res = await this.request(`/platforms/${platformId}`)
+    const res = await this.request(`/platforms/${platformId}`)
     return res;
   };
+
+
 
   // GENRES API ROUTES
 
   static async getGenres() {
-    let res = await this.request('/genres');
+    const res = await this.request('/genres');
     return res;
-  }
+  };
+
+  
 
 
   // Authorization routes
 
   static async login(loginData) {
-    let res = await this.request('/auth/login', loginData, "post");
+    const res = await this.request('/auth/login', loginData, "post");
     return res.token
-  }
+  };
 
   static async getUser(username) {
-    let res = await this.request(`/users/${username}`);
+    const res = await this.request(`/users/${username}`);
     return res.user
   };
 
 
   static async signup(signupData) {
-    let res = await this.request('/auth/register', signupData, 'post')
+    const res = await this.request('/auth/register', signupData, 'post')
     return res.token
-  }
+  };
+
+
+
 
   // Edit user page
 
   static async editProfile(username, data) {
-    let res = await this.request(`/users/${username}`, data, "post");
+    const res = await this.request(`/users/${username}`, data, "post");
     return res.user;
-  }
+  };
 
-  static async explorePage(){
-    let res = await this.request('/games/explore');
-    return res
-  }
 
 }
 

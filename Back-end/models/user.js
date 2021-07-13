@@ -135,7 +135,16 @@ class User {
       [username],
     );
 
+    const faveRes = await db.query(
+      `SELECT game_id AS "gameId"
+      FROM favorites
+      WHERE username = $1`,
+      [username]
+    );
+    
+
     const user = userRes.rows[0];
+    user.favorites = faveRes.rows;
 
     return user;
   }
@@ -203,7 +212,37 @@ class User {
     if (!user) throw new NotFoundError(`No user: ${username}`);
   }
 
-}
+  static async addFavorite(username, gameId){
+    let result = await db.query(
+      `INSERT INTO favorites
+      (username, game_id)
+      VALUES ($1, $2)
+      RETURNING username`,
+      [username, gameId]
+    );
+
+      if(!result.rows[0]) throw new NotFoundError('Error adding favorite game.')
+      return result.rows[0]
+  }
+
+  static async removeFavorite(username, gameId) {
+    let result = await db.query(
+      `DELETE FROM favorites
+      WHERE username=$1 
+      AND game_id=$2
+      RETURNING username
+      `,
+      [username, gameId]
+    );
+
+    if(!result.rows[0]) throw new NotFoundError('Game not found in your favorites.')
+    return result.rows[0]
+  }
+  
+
+};
+
+
 
 
 

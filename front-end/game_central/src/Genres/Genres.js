@@ -7,29 +7,30 @@ import Genre from "./Genres";
 const Genres = () => {
 
     const [genres, setGenres] = useState(null);
-    
-    useEffect(()=>{
-        if(!genres){
-        getAllGenres();
-    }
-    }, [])
 
-    async function getAllGenres() {
-        const results = await GameAPI.getGenres();
-        return results;
-    };
+    useEffect(() => {
+        let isMounted = true;
+        async function getAllGenres() {
+            setGenres(await GameAPI.getGenres());
+        };
+        getAllGenres();
+        return () => { isMounted = false; }
+    }, [genres])
+
+
 
 
     if (!genres) return <h1>Loading...</h1>
+    let genreList = genres.map(genre => {
+        return (
+            <Genre key={genre.id} genre={genre} />
+        )
+    }
+    );
 
     return (
         <div className='genres'>
-            {genres.map(genre => {
-                return (
-                    <Genre key={genre.id} genre={genre} />
-                )
-            }
-            )}
+            {genreList}
 
 
         </div>

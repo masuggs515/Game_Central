@@ -6,6 +6,7 @@ const platformRoutes = require('./routes/platformRoutes')
 const genreRoutes = require('./routes/genreRoutes');
 const authRoutes = require('./routes/authRoutes')
 const userRoutes = require('./routes/userRoutes')
+const favoritesRoutes = require('./routes/favoritesRoutes');
 const { NotFoundError } = require('./expressError');
 const morgan = require('morgan');
 const { authenticateJWT } = require('./middleware/auth');
@@ -22,6 +23,7 @@ app.use("/platforms", platformRoutes);
 app.use("/genres", genreRoutes);
 app.use("/auth", authRoutes);
 app.use("/users", userRoutes);
+app.use("/favorites", favoritesRoutes);
 
 
  /*  

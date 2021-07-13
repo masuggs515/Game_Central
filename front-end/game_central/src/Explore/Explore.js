@@ -14,6 +14,12 @@ const Explore = () =>{
 
     if(!gameByType) return <h1>Loading....</h1>
 
+    let newGamesList = gameByType.new.map(game => {
+        return (
+            <Game key={game.id} game={game} />
+        )
+    })
+
     let actionList = gameByType.action.map(game => {
         return (
             <Game key={game.id} game={game} />
@@ -35,6 +41,8 @@ const Explore = () =>{
     return (
         <div>
             <h1>Games by Category</h1>
+            <h3>Newest Releases</h3>
+            {newGamesList}
             <h3>ACTION</h3>
             {actionList}
             <h3>INDIE</h3>
