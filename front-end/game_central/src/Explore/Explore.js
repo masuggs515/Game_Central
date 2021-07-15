@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import GameAPI from "../GameAPI";
-import Game from "../Games/Game";
+import { Container } from "@material-ui/core";
+import GameList from "../Games/GameList";
+import { makeStyles } from "@material-ui/styles";
 
-const Explore = () =>{
+const Explore = () => {
     const [gameByType, setGameByType] = useState(null);
 
     useEffect(function () {
@@ -12,44 +14,29 @@ const Explore = () =>{
         getGameByTypes();
     }, []);
 
-    if(!gameByType) return <h1>Loading....</h1>
+    const useStyles = makeStyles((theme) => ({
+        headers: {
+            textAlign: "center",
+            color: "#3f51b5",
+            fontFamily: "Roboto"
+        }
+    }));
+    const classes = useStyles();
 
-    let newGamesList = gameByType.new.map(game => {
-        return (
-            <Game key={game.id} game={game} />
-        )
-    })
-
-    let actionList = gameByType.action.map(game => {
-        return (
-            <Game key={game.id} game={game} />
-        )
-    })
-
-    let indieList = gameByType.indie.map(game => {
-        return (
-            <Game key={game.id} game={game} />
-        )
-    })
-
-    let adventureList = gameByType.adventure.map(game => {
-        return (
-            <Game key={game.id} game={game} />
-        )
-    })
+    if (!gameByType) return <h1>Loading....</h1>
 
     return (
-        <div>
-            <h1>Games by Category</h1>
-            <h3>Newest Releases</h3>
-            {newGamesList}
-            <h3>ACTION</h3>
-            {actionList}
-            <h3>INDIE</h3>
-            {indieList}
-            <h3>ADVENTURE</h3>
-            {adventureList}
-        </div>
+        <Container maxWidth={"md"}>
+            <h1 className={classes.headers}>Top Games by Categories</h1>
+            <h3 className={classes.headers}>ACTION</h3>
+            <GameList games={gameByType.action} />
+            <h3 className={classes.headers}>INDIE</h3>
+            <GameList games={gameByType.indie} />
+            <h3 className={classes.headers}>ADVENTURE</h3>
+            <GameList games={gameByType.adventure} />
+            <h3 className={classes.headers}>Newest Releases</h3>
+            <GameList games={gameByType.new} />
+        </Container>
     );
 };
 

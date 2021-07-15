@@ -87,6 +87,12 @@ class GameAPI {
     return res;
   };
 
+  static async getGenre(genreId){
+    const res = await this.request(`/genres/${genreId}`);
+    
+    return res;
+  }
+
   
 
 

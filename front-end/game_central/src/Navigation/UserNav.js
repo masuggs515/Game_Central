@@ -6,15 +6,15 @@ const UserNav = ({ logout }) => {
     const { currUser } = useContext(TokenContext);
 
     if (!currUser) return (
-        <div>
-            <NavLink to='/login'>Login</NavLink>
+        <div style={{margin: "0 15px"}}>
+            <NavLink style={{margin: "0 15px"}} to='/login'>Login</NavLink>
             <NavLink to='/register'>Signup</NavLink>
         </div>
         )
     return (
-        <div>
-            <NavLink to='/' onClick={logout}>Logout</NavLink>
-            <NavLink to={`user/${currUser.username}`} >{currUser.username}</NavLink>
+        <div style={{margin: "0 15px"}}>
+            <NavLink style={{margin: "0 15px"}} to={`/user/${currUser.username}`} >{currUser.username}</NavLink>
+            <NavLink  to='/' onClick={logout}>Logout</NavLink>
 
         </div>
     )

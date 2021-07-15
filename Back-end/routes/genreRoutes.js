@@ -24,8 +24,9 @@ router.get('/:genreId', async (req, res, next) => {
     const {genreId} = req.params;
     try {
         const games = await Game.findGamesByGenre(genreId);
-
-        return res.json(games);
+        const details = await Genre.getGenreDetails(genreId);
+        details.games = games;
+        return res.json(details);
     } catch (e) {
         return next(e);
     }

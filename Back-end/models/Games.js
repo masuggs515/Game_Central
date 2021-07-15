@@ -59,12 +59,14 @@ class Game {
             {
                 params: {
                     key: GAME_TOKEN,
-                    genres: genreId
+                    genres: genreId,
+                    page_size: 10
                 }
             });
 
         return results.data.results;
     };
+    
 
     static async exploreGames() {
         try {

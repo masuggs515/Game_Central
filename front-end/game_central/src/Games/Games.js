@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import GameAPI from "../GameAPI";
-import Game from './Game';
+import GameList from './GameList';
 import { useLocation } from "react-router-dom";
-
+import { Container } from "@material-ui/core";
 
 
 const Games = () => {
@@ -20,18 +20,21 @@ const Games = () => {
     if (!games) return <h1>Loading...</h1>
 
 
-
     return (
-        <div className='Games'>
-            {games.map(game => {
-                return (
-                    <Game key={game.id} game={game} />
-                )
-            }
-            )}
+        <Container maxWidth={"md"}>
+            <h1
+                style={{
+                    textAlign: "center",
+                    color: "#3f51b5",
+                    fontFamily: "Roboto"
+                }}>
+                Top Games of All Time
+            </h1>
 
+            <GameList games={games}/>
 
-        </div>
+            
+        </Container>
     )
 };
 

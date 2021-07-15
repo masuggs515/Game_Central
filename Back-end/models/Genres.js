@@ -10,7 +10,20 @@ class Genre{
             { params: { key: GAME_TOKEN } });
 
             return results.data.results;
+    };
+
+    static async getGenreDetails(genreId){
+        const results = await axios.get(`${GAME_BASE_URL}/genres/${genreId}`,
+        {
+            params: {
+                key: GAME_TOKEN
+            }
+        });
+
+        return results.data
     }
 };
+
+
 
 module.exports = Genre;

@@ -1,31 +1,53 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GameAPI from "../GameAPI";
+import { makeStyles } from "@material-ui/styles";
+import { Container } from "@material-ui/core";
 
-const GameDetails = () =>{
-    const {gameId} = useParams();
+const GameDetails = () => {
+    const { gameId } = useParams();
     const [game, setGame] = useState(null);
 
-    useEffect(function getGameDetails(){
-        async function getGame(){
+    useEffect(function getGameDetails() {
+        async function getGame() {
             setGame(await GameAPI.getGame(gameId));
         }
         getGame();
     }, [gameId]);
 
-    if(!game) return <h1>Loading...</h1>
+    const useStyles = makeStyles((theme) => ({
+        headers: {
+            textAlign: "center",
+            color: "#3f51b5",
+            fontFamily: "Roboto"
+        },
+        description: {
+            width: "50vw",
+            fontSize: "1.2em",
+            marginTop: "3vh",
+            color: "#3f51b5",
+            fontWeight: "600",
+            textAlign: "right"
+        },
+        image: {
+            float: "right",
+            width: "30vw",
+            margin: "1.2em"
+        }
+    }));
+
+    const classes = useStyles();
+
+    if (!game) return <h1>Loading...</h1>
 
     return (
-        <div className='GameDetails' 
-        style={{background: `url(${game.background_image})`, 
-        height: '100vh', 
-        width: '100vw'}}>
+        <Container maxWidth={"md"}>
+            <h1 className={classes.headers}>{game.name}</h1>
+            <img src={game.background_image} className={classes.image} />
 
-            <h1>{game.name}</h1>
-            <h3>Rating: {game.rating}</h3>
-            <p>{game.description_raw}</p>
+            <p className={classes.description}>{game.description_raw}</p>
 
-        </div>
+        </Container>
     )
 };
 

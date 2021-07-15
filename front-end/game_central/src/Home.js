@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import GameAPI from "./GameAPI";
-import Game from "./Games/Game";
+import GameList from "./Games/GameList";
 
 const Home =() =>{
     const [games, setGames] = useState(null)
@@ -17,12 +17,7 @@ const Home =() =>{
     return (
         <div>
         <h1>HOMEPAGE</h1>
-        {games.map(game => {
-                return (
-                    <Game key={game.id} game={game} />
-                )
-            }
-            )}
+        <GameList games={games} />
         </div>
         
     )

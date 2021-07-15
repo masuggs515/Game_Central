@@ -6,6 +6,7 @@ import GameAPI from './GameAPI';
 import { useEffect, useState } from 'react';
 import TokenContext from './context/tokenContext';
 import jwt from 'jsonwebtoken';
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
 
 function App() {
 
@@ -22,12 +23,12 @@ function App() {
           let { username } = jwt.decode(token);
           let user = await GameAPI.getUser(username);
           setCurrUser(await user);
-          setUserFavorites(await user.favorites.map(game=> game.gameId))
+          setUserFavorites(await user.favorites.map(game => game.gameId))
           setInfoLoaded(true);
         } catch (e) {
           console.log(e)
         }
-      }else{ 
+      } else {
         setInfoLoaded(true)
       }
     }
@@ -35,7 +36,7 @@ function App() {
     getCurrentUser();
   }, [token]);
 
-  
+
 
 
   const login = async (loginData) => {
@@ -66,20 +67,24 @@ function App() {
     setToken(null);
   }
 
-if(!infoLoaded) return <h1>Loading....</h1>
+  const theme = createTheme();
+
+  if (!infoLoaded) return <h1>Loading....</h1>
 
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <TokenContext.Provider value={{ token, currUser, setCurrUser, userFavorites, setUserFavorites }}>
-          <BrowserRouter>
-            <Navbar logout={logout} />
-            <Routes login={login} signup={signup}/>
-          </BrowserRouter>
-        </TokenContext.Provider>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+        <header className="App-header">
+          <TokenContext.Provider value={{ token, currUser, setCurrUser, userFavorites, setUserFavorites }}>
+            <BrowserRouter>
+              <Navbar logout={logout} />
+              <Routes login={login} signup={signup} />
+            </BrowserRouter>
+          </TokenContext.Provider>
+        </header>
+      </div>
+    </ThemeProvider>
   );
 }
 

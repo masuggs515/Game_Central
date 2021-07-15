@@ -1,6 +1,5 @@
 import { Route, Switch } from "react-router-dom";
 
-import Genres from "./Genres/Genres";
 import Platforms from "./Platforms/Platforms";
 import PlatformDetails from "./Platforms/PlatformDetails";
 import Games from "./Games/Games";
@@ -11,7 +10,8 @@ import Signup from "./User/RegisterRoute";
 import Profile from "./User/Profile"
 import ProfileEdit from "./User/ProfileEdit";
 import Explore from "./Explore/Explore";
-import Genre2 from "./Genres/Genre2";
+import Genres from "./Genres/Genres";
+import GenreDetails from './Genres/GenreDetails'
 
 
 const Routes = ({login, signup}) =>{
@@ -34,8 +34,10 @@ const Routes = ({login, signup}) =>{
                 <LoginRoute login={login}/>
             </Route>
             <Route exact path='/genres'>
-                {/* <Genres /> */}
-                <Genre2 />
+                <Genres />
+            </Route>
+            <Route exact path='/genres/:genreId'>
+                <GenreDetails />
             </Route>
             <Route exact path='/games'>
                 <Games />

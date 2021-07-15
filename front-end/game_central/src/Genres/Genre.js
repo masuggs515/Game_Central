@@ -1,8 +1,31 @@
+import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/styles";
+import { Grid, Paper } from "@material-ui/core";
+
+const Genre = ({ category }) => {
 
 
-const Genre = ({genre}) =>{
+    const useStyles = makeStyles((theme) => ({
+        paper: {
+            padding: theme.spacing(2),
+            textAlign: 'center',
+            color: "#3f51b5",
+            fontWeight: "500",
+            background: "linear-gradient(180deg, rgba(250,250,250) 80%, rgba(144,144,144,1) 100%)"
+        }
+    }));
+
+    const classes = useStyles();
+
+
     return (
-        <h1>{genre.name}</h1>
+        <Grid item xs={6}>
+            <Link to={`/genres/${category.id}`}>
+                <Paper className={classes.paper}>
+                    {category.name}
+                </Paper>
+            </Link>
+        </Grid>
     )
 };
 
