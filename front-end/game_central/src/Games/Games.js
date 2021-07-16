@@ -3,6 +3,8 @@ import GameAPI from "../GameAPI";
 import GameList from './GameList';
 import { useLocation } from "react-router-dom";
 import { Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
+import LoadingScreen from "../LoadingScreen";
 
 
 const Games = () => {
@@ -17,18 +19,31 @@ const Games = () => {
         getAllGames();
     }, [location.search]);
 
-    if (!games) return <h1>Loading...</h1>
+    const useStyles = makeStyles(() => ({
+        headers: {
+            textAlign: "center",
+            color: "white",
+            fontFamily: "Roboto"
+        },
+        root:{
+            padding: "5vh 5vw",
+            background: "rgba(0,0,0, 0.95)"
+        }
+    }));
+    const classes = useStyles();
 
+    if (!games) return <LoadingScreen />
+    
 
     return (
-        <Container maxWidth={"md"}>
+        <Container maxWidth="lg" className={classes.root}>
             <h1
                 style={{
                     textAlign: "center",
-                    color: "#3f51b5",
+                    color: "#f0f0f0",
                     fontFamily: "Roboto"
                 }}>
-                Top Games of All Time
+                Top Games
             </h1>
 
             <GameList games={games}/>

@@ -10,8 +10,9 @@ const Genre = ({ category }) => {
             padding: theme.spacing(2),
             textAlign: 'center',
             color: "#3f51b5",
-            fontWeight: "500",
-            background: "linear-gradient(180deg, rgba(250,250,250) 80%, rgba(144,144,144,1) 100%)"
+            fontWeight: "800",
+            border: "rgb(67,220,220) solid 1px",
+            background: "linear-gradient(180deg, rgba(250,250,250) 0%, rgba(100,100,100,1) 100%)"
         }
     }));
 

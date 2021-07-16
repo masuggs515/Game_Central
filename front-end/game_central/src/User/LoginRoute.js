@@ -1,7 +1,9 @@
+import { Container, Paper, TextField, Button } from "@material-ui/core";
+import { makeStyles } from "@material-ui/styles";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-const LoginRoute =({login}) =>{
+const LoginRoute = ({ login }) => {
 
     const history = useHistory();
     const INITIAL_FORM_DATA = {
@@ -11,7 +13,7 @@ const LoginRoute =({login}) =>{
 
     const [formData, setFormData] = useState(INITIAL_FORM_DATA);
 
-    const handleChange = e =>{
+    const handleChange = e => {
         const { name, value } = e.target;
         setFormData(formData => ({
             ...formData,
@@ -19,38 +21,99 @@ const LoginRoute =({login}) =>{
         }));
     };
 
-    const handleSubmit = e =>{
+    const handleSubmit = e => {
         e.preventDefault();
         login(formData)
         setFormData(INITIAL_FORM_DATA)
         history.push('/')
     };
 
+    const useStyles = makeStyles((theme) => ({
+        headers: {
+            textAlign: "center",
+            color: "#f0f0f0",
+            fontFamily: "Roboto",
+            marginBottom: "1.5em"
+        },
+        root: {
+            '& .MuiInputBase-input': {
+                color: "white"
+            },
+            '& .MuiTextField-root': {
+                margin: theme.spacing(4),
+                width: '90%',
+                display: "flex",
+                color: "white"
+            },
+            '& label.Mui-focused':{
+                color: 'white'
+            },
+            '& label':{
+                color: "white"
+            },
+            '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                    borderColor: 'white'
+                },
+                '&:hover fieldset': {
+                    borderColor: 'white',
+                },
+                '&.Mui-focused fieldset': {
+                    borderColor: 'white',
+                },
+            }
+
+        },
+        text: {
+            color: "white"
+        },
+        button: {
+            marginLeft: "2.2em",
+            margin: "1em",
+            width: "90%",
+            padding: "10px 0"
+        },
+        paper: {
+            marginTop: "7vh",
+            padding: '2em 1em',
+            background: 'black',
+            borderRadius: "20px"
+        }
+    }));
+
+    const classes = useStyles();
+
     return (
-        <div className='Login align-items-center d-flex flex-column' style={{height: '89.75vh'}}>
-            <h1>Login</h1>
-            <form onSubmit={handleSubmit} style={{width: '40vw'}}  className='text-start'>
-                <label htmlFor='username' className='form-label'>Username </label>
-                <input name='username'
-                    className='form-control mb-2'
-                    id='username'
-                    type='text'
-                    placeholder='Username...'
-                    onChange={handleChange}
-                />
-                <label htmlFor='password' className='form-label'>Password </label>
-                <input name='password'
-                className='form-control mb-2'
-                    id='password'
-                    type='password'
-                    placeholder='Password...'
-                    onChange={handleChange}
-                />
-                <div className='d-grid'>
-                        <button className='btn btn-primary m-2'>Submit</button>
-                    </div>
-            </form>
-        </div>
+        <Container maxWidth="sm">
+            <Paper elevation={5} className={classes.paper}>
+                <h1 className={classes.headers}>Login</h1>
+                <form onSubmit={handleSubmit} className={classes.root}>
+
+                    <TextField
+                        name="username"
+                        label="Username"
+                        variant="outlined"
+                        id='username'
+                        type='text'
+                        InputProps={{
+                            className: classes.text
+                        }}
+                        onChange={handleChange} />
+
+                    <TextField
+                        name="password"
+                        label="Password"
+                        variant="outlined"
+                        id='password'
+                        type='password'
+                        onChange={handleChange} />
+
+                    <Button type="submit" className={classes.button}
+                        variant='contained'
+                        color='primary'>Submit</Button>
+                </form>
+            </Paper>
+        </Container>
     )
 };
 

@@ -43,17 +43,9 @@ const ProfileEdit = () => {
     const useStyles = makeStyles((theme) => ({
         headers:{
                 textAlign: "center",
-                color: "#3f51b5",
+                color: "#f0f0f0",
                 fontFamily: "Roboto",
                 marginBottom: "1em"        
-        },
-        root: {
-          '& .MuiTextField-root': {
-            margin: theme.spacing(2),
-            width: '90%',
-            display: "flex"
-          },
-          
         },
         button: {
             marginLeft: "1em",
@@ -63,7 +55,41 @@ const ProfileEdit = () => {
         },
         paper:{
             marginTop: "7vh",
-            padding: '1em'
+            padding: '1em',
+            background: "black",
+            borderRadius: "15px"
+        },
+        root: {
+            '& .Mui-disabled': {
+                color: "white"
+            },
+            '& .MuiInputBase-input': {
+                color: "white"
+            },
+            '& .MuiTextField-root': {
+                margin: theme.spacing(4),
+                width: '90%',
+                display: "flex",
+                color: "white"
+            },
+            '& label.Mui-focused':{
+                color: 'white'
+            },
+            '& label':{
+                color: "white"
+            },
+            '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                    borderColor: 'white'
+                },
+                '&:hover fieldset': {
+                    borderColor: 'white',
+                },
+                '&.Mui-focused fieldset': {
+                    borderColor: 'white',
+                }
+            }
+
         }
       }));
 
@@ -72,16 +98,16 @@ const ProfileEdit = () => {
     if (!currUser) return <h1>Loading...</h1>
     return (
         <Container maxWidth="sm">
-            <Paper elevation={5} className={classes.paper}>
+            <Paper elevation={9} className={classes.paper}>
             <h1 className={classes.headers}>Edit {currUser.username}'s Profile</h1>
             
                 <form onSubmit={handleSubmit} className={classes.root}>
 
                     <TextField
-                        disabled
+                    disabled
                         label="Username"
                         variant="outlined"
-                        defaultValue={currUser.username}
+                        value={currUser.username}
 
                     />
 
@@ -122,7 +148,9 @@ const ProfileEdit = () => {
                         type='password'
                         onChange={handleChange}
                     />
-                        <Button type="submit" className={classes.button} variant='contained' color='primary'>Submit</Button>
+                        <Button type="submit" className={classes.button} 
+                        variant='contained' 
+                        color='primary'>Submit</Button>
                     
                 </form>
                 </Paper>

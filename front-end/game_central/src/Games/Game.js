@@ -23,12 +23,13 @@ const Game = ({ game }) => {
     const useStyles = makeStyles((theme) => ({
         paper: {
             margin: theme.spacing(2),
+            border: "rgb(85,160,160) solid 2px",
             borderRadius: "10px",
             height: "200px",
             width: "140px",
             display: "flex",
             flexDirection: "column",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
             alignItems: "center",
             textAlign: "center",
             overflow: "hidden"
@@ -38,8 +39,7 @@ const Game = ({ game }) => {
             background: "#3f51b5",
             color: "white",
             padding: "5px 10px",
-            opacity: "0.85",
-            justifySelf: "flex-end"
+            opacity: "0.85"
         },
         link: {
             width: "100%",
@@ -47,8 +47,9 @@ const Game = ({ game }) => {
         },
         button: {
             color: "red",
-            position: "relative",
-            alignSelf: "flex-end",
+            position: "absolute",
+            marginBottom: "170px",
+            marginLeft: "110px",
             opacity: "0.7",
             padding: "3px",
             margin: "3px"
@@ -65,7 +66,10 @@ const Game = ({ game }) => {
             } : {background: `url(https://www.wallpapersun.com/wp-content/uploads/2021/01/Gaming-Wallpaper-2-715x536.jpg)`,
             backgroundSize: "100% 100%"}}>
             
-            <Link className={classes.link} to={`/games/${game.id}`}>
+            <Link 
+            style={!currUser ? {alignSelf: "flex-end"} : {alignSelf: "flex-start"}}
+            className={classes.link} 
+            to={`/games/${game.id}`}>
                 <div className={classes.title} key={game.id}>
                     {game.name}
                 </div>
@@ -73,7 +77,7 @@ const Game = ({ game }) => {
             {currUser &&
                 <IconButton className={classes.button} 
                 onClick={handleClick}>{userFavorites.includes(game.id) ? 
-                <FavoriteIcon className="favorited"/> : 
+                <FavoriteIcon /> : 
                 <FavoriteBorderIcon />}</IconButton>
             }
         </Paper>

@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import GameAPI from "../GameAPI";
 import GameList from "../Games/GameList";
-import { Container } from "@material-ui/core";
+import { Container, Paper } from "@material-ui/core";
+import LoadingScreen from "../LoadingScreen";
 
 
 
@@ -21,36 +22,48 @@ const PlatformDetails = () => {
     const useStyles = makeStyles((theme) => ({
         headers: {
             textAlign: "center",
-            color: "#3f51b5",
+            color: "#f0f0f0",
             fontFamily: "Roboto"
         },
         description: {
-            width: "50vw",
+            width: "100%",
             fontSize: "1.2em",
-            marginTop: "3vh",
+            margin: "3vh 0",
             color: "#3f51b5",
             fontWeight: "600",
             textAlign: "right"
         },
         image: {
             float: "right",
-            width: "30vw",
+            width: "60%",
             margin: "1em"
+        },
+        root:{
+            padding: "5vh 5vw",
+            background: "rgba(0,0,0, 0.95)"
+        },
+        paper: {
+            padding: "4vh 5%",
+            background: "black"
         }
     }));
 
     const classes = useStyles();
 
-    if (!platform) return <h1>Loading...</h1>
+    if (!platform) return <LoadingScreen />
 
     return (
-        <Container maxWidth={"md"}>
+        <Container className={classes.root} maxWidth="lg">
+            <Paper className={classes.paper}>
             <h1 className={classes.headers}>{platform.name}</h1>
             <img src={platform.image_background} className={classes.image} />
 
             <p className={classes.description}>{platform.description}</p>
-            <h2 className={classes.headers}>Games in {platform.name}</h2>
+            </Paper>
+            <h2 className={classes.headers}>Games on {platform.name}</h2>
+            
             <GameList games={platform.results} />
+            
         </Container>
     );
 };

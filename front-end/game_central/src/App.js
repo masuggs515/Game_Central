@@ -65,7 +65,7 @@ function App() {
   const logout = async () => {
     setCurrUser(null);
     setToken(null);
-  }
+  };
 
   const theme = createTheme();
 
@@ -75,14 +75,12 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <header className="App-header">
           <TokenContext.Provider value={{ token, currUser, setCurrUser, userFavorites, setUserFavorites }}>
             <BrowserRouter>
               <Navbar logout={logout} />
               <Routes login={login} signup={signup} />
             </BrowserRouter>
           </TokenContext.Provider>
-        </header>
       </div>
     </ThemeProvider>
   );
