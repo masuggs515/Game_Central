@@ -27,7 +27,7 @@ class Game {
             });
         let random_idx;
 
-        for (let i = 0; i < 5; i++) {
+        for (let i = 0; i < 4; i++) {
             random_idx = Math.floor(Math.random() * 10000);
             let randomGame = await results.data.results[random_idx];
             randomGame ? games.push(randomGame) : i--;
