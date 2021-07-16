@@ -20,7 +20,7 @@ class GameAPI {
       console.error("API Error:", err.response);
       const message = err.response.data.error.message;
       throw Array.isArray(message) ? message : [message];
-    }
+    } 
   };
 
   // GAME API ROUTES
