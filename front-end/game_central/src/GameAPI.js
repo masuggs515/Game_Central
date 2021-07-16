@@ -1,15 +1,11 @@
 import axios from 'axios';
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001"
+const BASE_URL = process.env.REACT_APP_BASE_URL || "https://suggs-gaming.herokuapp.com"
 
 class GameAPI {
   static token;
 
   static async request(endpoint, data = {}, method = "get") {
-    console.log("DATA -->", data)
-    console.log("ENDPOINT ===>", endpoint);
-    console.log("METHOD --> ", method)
-    console.debug("API Call:", endpoint, data, method);
 
 
     const url = `${BASE_URL}${endpoint}`;
