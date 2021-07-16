@@ -16,8 +16,8 @@
     "pg": "^8.6.0"
   },
   "scripts": {
-    "start": "nodemon -L server.js",
-    "test": "jest"
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC"
