@@ -41,7 +41,6 @@ function App() {
 
   const login = async (loginData) => {
     try {
-      console.log(loginData)
       setToken(await GameAPI.login(loginData));
       return { success: true }
     } catch (e) {

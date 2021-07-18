@@ -23,10 +23,10 @@ const Game = ({ game }) => {
     const useStyles = makeStyles((theme) => ({
         paper: {
             margin: theme.spacing(2),
-            border: "rgb(85,160,160) solid 2px",
+            border: "rgb(67,81,182) solid 1px",
             borderRadius: "10px",
-            height: "200px",
-            width: "140px",
+            height: "135px",
+            width: "240px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-end",
@@ -36,7 +36,7 @@ const Game = ({ game }) => {
         },
         title: {
             fontWeight: 500,
-            background: "#3f51b5",
+            background: "linear-gradient(180deg, rgba(150,150,150) 0%, rgba(10,10,10,1) 100%)",
             color: "white",
             padding: "5px 10px",
             opacity: "0.85"
@@ -48,8 +48,8 @@ const Game = ({ game }) => {
         button: {
             color: "red",
             position: "absolute",
-            marginBottom: "170px",
-            marginLeft: "110px",
+            marginBottom: "105px",
+            marginLeft: "200px",
             opacity: "0.7",
             padding: "3px",
             margin: "3px"
@@ -63,7 +63,7 @@ const Game = ({ game }) => {
             style={game.background_image ? {
                 background: `url(${game.background_image})`,
                 backgroundSize: "100% 100%"
-            } : {background: `url(https://www.wallpapersun.com/wp-content/uploads/2021/01/Gaming-Wallpaper-2-715x536.jpg)`,
+            } : {background: `url(https://t4.ftcdn.net/jpg/02/42/75/73/360_F_242757347_o0ltkMQ9gOhietePjEnj8MfqQZfuhgTL.jpg)`,
             backgroundSize: "100% 100%"}}>
             
             <Link 

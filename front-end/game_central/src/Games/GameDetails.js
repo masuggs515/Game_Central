@@ -62,6 +62,7 @@ const GameDetails = () => {
     const classes = useStyles();
 
     if (!game) return <LoadingScreen />
+    console.log(game)
 
     return (
         <Container maxWidth='lg'>
